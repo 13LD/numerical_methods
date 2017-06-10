@@ -50,6 +50,16 @@ def max_col_norm_m(matrix):
     return res
 
 
+def euclid_norm(matrix):
+    s = 0
+
+    for row in matrix:
+        for elem in row:
+            s += elem ** 2
+
+    return math.sqrt(s)
+
+
 def scalar_prod(matrix, scalar):
     if isinstance(matrix[0], (list, tuple)):
         return [[item * scalar for item in row] for row in matrix]
