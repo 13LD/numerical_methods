@@ -15,9 +15,13 @@ def bidiag_reduction(matrix):
         if i < k - 2:
             B, V = update_row(B, V, i, i + 1)
 
-    # TODO
     if m < n:
-        B, V = update_row(B, V, m - 1, m - 1)
+        B, V = update_row(B, V, m - 2, m - 1)
+        B, V = update_row(B, V, m - 1, m)
+        for i in range(k - 1, -1, -1):
+            G = get_Gij(B, i, k, n)
+            B = multiply_m(B, G)
+            V = multiply_m(V, G)
 
     return U, B, V
 
@@ -67,11 +71,3 @@ if __name__ == '__main__':
 
     U, B, V = bidiag_reduction(K)
     print_matrix(B)
-
-    '''
-    -199.04 -167.68    0.00   -0.00   -0.00   -0.00   -0.00 
-       0.00  284.14  133.41   -0.00    0.00   -0.00    0.00 
-       0.00   -0.00 -146.24 -223.47   -0.00    0.00    0.00 
-      -0.00    0.00    0.00   45.39 -122.85   -0.00    0.00 
-      -0.00   -0.00   -0.00   -0.00   86.83   35.04   20.07 
-    '''

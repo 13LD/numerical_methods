@@ -199,3 +199,39 @@ def get_diagonal(m):
         diagonal.append(m[i][i])
 
     return diagonal
+
+
+def get_givens_coeff(f, g):
+
+    if f == 0:
+        c = 0
+        s = 1
+    elif math.fabs(f) > math.fabs(g):
+        t = g / f
+        t1 = math.sqrt(1 + t**2)
+        c = 1. / t1
+        s = t * c
+    else:
+        t = f / g
+        t1 = math.sqrt(1 + t**2)
+        s = 1. / t1
+        c = t * s
+
+    return c, s
+
+
+def generate_G(c, s, n, i, j):
+    G = eye(n)
+
+    G[i][i] = G[j][j] = c
+    G[j][i] = -s
+    G[i][j] = s
+
+    return G
+
+
+def get_Gij(A, i, j, n):
+    t = -A[i][j] / A[i][i]
+    c = 1. /math.sqrt(1 + t**2)
+    s = c * t
+    return generate_G(c, s, n, i, j)
