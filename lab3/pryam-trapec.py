@@ -1,4 +1,4 @@
-from math import log, cos, fabs
+from math import log, cos, sin, tan, sqrt, fabs
 
 def frange(start, stop, step=1.0):
     while start < stop:
@@ -6,14 +6,16 @@ def frange(start, stop, step=1.0):
         start += step
 
 
-def expression(x):
+def expression_1(x):
     return x * cos(x * x)+log(x * x * x)
 
+def expression_16(x):
+    return (1+ sqrt(1/tan(x)))/(sin(x)*sin(x))
 
 def trapec(a, b, epsilon):
     H = b - a
     n = 1
-    I_tH = (H/2.0) * (expression(a) + expression(b))
+    I_tH = (H/2.0) * (expression_16(a) + expression_16(b))
     while True:
         h = H / 2.0
         x_list = [a + h]
@@ -21,7 +23,7 @@ def trapec(a, b, epsilon):
             x_list.append(x_list[i - 1] + H)
         sum_y = 0
         for x in x_list:
-            sum_y += expression(x)
+            sum_y += expression_16(x)
 
         I_pH = H * sum_y
         I_th = (I_pH + I_tH)/2.0
@@ -39,4 +41,12 @@ def trapec(a, b, epsilon):
     print(n)
     print(I_ch)
 
-trapec(5, 7, 0.000000001)
+
+## 10.3118439923192 Wolfram VAR - 1
+## integrate x * cos(x * x)+log(x * x * x) dx, x=5..7
+# trapec(5, 7, 0.000000001)
+
+
+## 2.49643 Wolfram VAR - 16
+## integrate (1+ sqrt(1/tan(x)))/(sin(x)*sin(x)) dx, x=0.5..1
+trapec(0.5, 1, 0.000000001)
