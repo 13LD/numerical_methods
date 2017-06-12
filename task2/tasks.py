@@ -1,5 +1,6 @@
 from singular_decomposition.svd import svd
 from util.matrix_tool import *
+import numpy as np
 
 
 def p_inv(A):
@@ -55,13 +56,17 @@ def get_singular_values(A):
     return get_diagonal(S)
 
 if __name__ == '__main__':
-    from util.contants import A1_15, b1_15
-    U, S, V = svd(A1_15)
-    print_matrix(S)
+    from util.contants import A2_5 as A, b2_5 as b
+    U, S, V = svd(A)
+    print_matrix(S, precision=4)
     print("Pseudo Inv:")
-    print_matrix(p_inv(A1_15), precision=4)
-    print(rang(A1_15))
-    print(condition(A1_15))
-    print(condition(A1_15, p_inv(A1_15)))
-    print(slar_norm(A1_15, transpose(b1_15)))
-    print(solve_slar(A1_15, transpose(b1_15)))
+    print_matrix(p_inv(A), precision=4)
+    print(rang(A))
+    print(condition(A))
+    print(condition(A, p_inv(A)))
+    print(slar_norm(A, transpose(b)))
+    print(solve_slar(A, transpose(b)))
+
+    print_matrix(np.linalg.pinv(A), precision=4)
+    print(np.linalg.cond(A))
+    print(np.linalg.matrix_rank(A))
