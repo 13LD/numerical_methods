@@ -15,7 +15,7 @@ def expression_16(x):
 def trapec(a, b, epsilon):
     H = b - a
     n = 1
-    I_tH = (H/2.0) * (expression_16(a) + expression_16(b))
+    I_tH = (H/2.0) * (expression_1(a) + expression_1(b))
     while True:
         h = H / 2.0
         x_list = [a + h]
@@ -23,7 +23,7 @@ def trapec(a, b, epsilon):
             x_list.append(x_list[i - 1] + H)
         sum_y = 0
         for x in x_list:
-            sum_y += expression_16(x)
+            sum_y += expression_1(x)
 
         I_pH = H * sum_y
         I_th = (I_pH + I_tH)/2.0
@@ -44,9 +44,9 @@ def trapec(a, b, epsilon):
 
 ## 10.3118439923192 Wolfram VAR - 1
 ## integrate x * cos(x * x)+log(x * x * x) dx, x=5..7
-# trapec(5, 7, 0.000000001)
+trapec(5, 7, 0.000000001)
 
 
 ## 2.49643 Wolfram VAR - 16
 ## integrate (1+ sqrt(1/tan(x)))/(sin(x)*sin(x)) dx, x=0.5..1
-trapec(0.5, 1, 0.000000001)
+# trapec(0.5, 1, 0.000000001)
