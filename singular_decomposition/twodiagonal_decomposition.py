@@ -1,7 +1,7 @@
 from util.matrix_tool import *
 
 
-def qr(B):
+def twodiagonal_decomposition(B):
     m, n = size(B)
     U = eye(m)
     V = eye(n)

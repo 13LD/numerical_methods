@@ -1,6 +1,6 @@
 from util.matrix_tool import *
 from singular_decomposition.bidiag_reduction import bidiag_reduction
-from singular_decomposition.qr import qr
+from singular_decomposition.twodiagonal_decomposition import twodiagonal_decomposition
 
 
 def svd(A, verbose=False):
@@ -8,7 +8,7 @@ def svd(A, verbose=False):
 
     i = 0
     while compute_error(B) > 10**(-7):
-        U2, B, V2 = qr(B)
+        U2, B, V2 = twodiagonal_decomposition(B)
         U = multiply_m(U, U2)
         V = multiply_m(V, V2)
         i += 1
